@@ -8,9 +8,7 @@ class CreditCard:
         self.number = number
 
     def validate(self, expiration, holder, cvc):
-        print(self.number)
-        print(type(self.number))
-        print(self.df)
+
         card_data = {"number": self.number,
                      "expiration": expiration,
                      "holder": holder,
@@ -22,3 +20,13 @@ class CreditCard:
             return False
 
 
+class SecureCreditCard(CreditCard):
+
+    def authenticate(self, given_password):
+        df = pd.read_csv("card_security.csv", dtype=str)
+        password = df.loc[df["number"] == self.number, "password"].squeeze()
+
+        if password == given_password:
+            return True
+        else:
+            return False

@@ -1,12 +1,12 @@
 import pandas as pd
-from hotel_object import Hotel
-from reservation_ticket_object import ReservationTicket
+from hotel_object import SpaHotel
+from reservation_ticket_object import ReservationTicket, SpaTicket
 from credit_card_object import SecureCreditCard
 
 hotel_data = pd.read_csv("hotels.csv")
 print(hotel_data)
 hotel_ID = input("Enter the id of the hotel: ")
-hotel = Hotel(hotel_id=hotel_ID)
+hotel = SpaHotel(hotel_id=hotel_ID)
 
 if not hotel.match_id():
     print("No matching hotel")
@@ -31,3 +31,9 @@ hotel.book()
 name = input("Enter your name: ")
 reservation_ticket = ReservationTicket(customer_name=name, hotel_object=hotel)
 print(reservation_ticket.generate())
+
+spa = input("Do you want to book a spa package? ").lower()
+if spa == "yes":
+    hotel.book_spa_package()
+    spa_ticket = SpaTicket(name, hotel)
+    print(spa_ticket.generate())

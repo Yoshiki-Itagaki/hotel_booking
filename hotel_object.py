@@ -31,6 +31,11 @@ class Hotel:
         self.df.loc[self.df["id"] == self.hotel_id, "available"] = "no"
         self.df.to_csv("hotels.csv", index=False)
 
+    @classmethod
+    def show(cls):
+        df = pd.read_csv("hotels.csv", dtype={"id": str})
+        return df
+
 
 class SpaHotel(Hotel):
     def book_spa_package(self):
